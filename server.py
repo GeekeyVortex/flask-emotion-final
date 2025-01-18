@@ -17,6 +17,9 @@ def emotion_detector_route():
     statement = request.json.get('statement')
     if statement:
         emotions = emotion_detector(statement)
+        # Handle the case where dominant_emotion is None
+        if emotions['dominant_emotion'] is None:
+            return jsonify({"error": "Invalid text! Please try again."}), 400
         return jsonify(emotions)
     return jsonify({"error": "No statement provided"}), 400
 
