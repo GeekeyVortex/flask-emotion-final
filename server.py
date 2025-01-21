@@ -1,3 +1,9 @@
+"""
+server.py
+Flask-based web server for an emotion detection application using Watson NLP API.
+"""
+
+
 from flask import Flask, render_template, request, jsonify
 from EmotionDetection import emotion_detector  # Assuming emotion_detector is your function
 
@@ -9,11 +15,21 @@ app = Flask(__name__,
 # Route for serving the index page
 @app.route('/')
 def index():
+    """
+    Renders the main index page of the web application.
+    """
     return render_template('index.html')
 
 # Route for emotion detection
 @app.route('/emotionDetector', methods=['POST'])
 def emotion_detector_route():
+
+    """
+    Handles POST requests for emotion detection.
+
+    Returns:
+        JSON response containing emotion analysis results or an error message.
+    """
     statement = request.json.get('statement')
     if statement:
         emotions = emotion_detector(statement)
